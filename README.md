@@ -21,24 +21,27 @@ A .NET 8 Web API for authenticated image upload, transformation, retrieval, and 
 
 ## Project Structure
 
-- `ImageProcessingService.Api/Controllers` - API endpoints
-- `ImageProcessingService.Api/Data` - EF Core context
-- `ImageProcessingService.Api/Models` - persistence models
-- `ImageProcessingService.Api/Services` - auth, storage, and image processing services
-- `ImageProcessingService.Api/Contracts` - request and response DTOs
+- `backend/ImageProcessingService.sln` - .NET solution
+- `backend/ImageProcessingService.Api` - ASP.NET Core API project
+- `frontend` - React client application
+- `backend/ImageProcessingService.Api/Controllers` - API endpoints
+- `backend/ImageProcessingService.Api/Data` - EF Core context
+- `backend/ImageProcessingService.Api/Models` - persistence models
+- `backend/ImageProcessingService.Api/Services` - auth, storage, and image processing services
+- `backend/ImageProcessingService.Api/Contracts` - request and response DTOs
 
 ## Run Locally
 
 1. Restore packages:
 
 ```powershell
-dotnet restore ImageProcessingService.Api/ImageProcessingService.Api.csproj --configfile ImageProcessingService.Api/NuGet.Config
+dotnet restore backend/ImageProcessingService.Api/ImageProcessingService.Api.csproj --configfile backend/ImageProcessingService.Api/NuGet.Config
 ```
 
 2. Start the API:
 
 ```powershell
-dotnet run --project ImageProcessingService.Api
+dotnet run --project backend/ImageProcessingService.Api
 ```
 
 3. Install frontend dependencies:
@@ -54,12 +57,12 @@ npm install
 npm run dev
 ```
 
-The API creates `image-processing.db` for metadata and `ImageProcessingService.Api/Storage` for persisted files on first run.
+The API creates `image-processing.db` for metadata and `backend/ImageProcessingService.Api/Storage` for persisted files on first run.
 The frontend runs on `http://localhost:5173` and proxies API requests to the .NET service on `http://localhost:5228`.
 
 ## Configuration
 
-Update `ImageProcessingService.Api/appsettings.json` before production use:
+Update `backend/ImageProcessingService.Api/appsettings.json` before production use:
 
 - `Jwt:SecretKey` - set a long random secret
 - `ConnectionStrings:DefaultConnection` - adjust database location if needed
