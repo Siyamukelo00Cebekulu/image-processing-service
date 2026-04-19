@@ -1,6 +1,6 @@
 # Image Processing Service
 
-A .NET 8 Web API for authenticated image upload, transformation, retrieval, and listing. The service uses JWT authentication, SQLite for metadata, local disk storage for image binaries, ImageSharp for processing, and built-in ASP.NET Core rate limiting for transformation protection.
+A full-stack image processing application with a .NET 8 backend and a React frontend. The service supports authenticated image upload, transformation, retrieval, and listing, with SQLite for metadata, local disk storage for image files, and ImageSharp for server-side image processing.
 
 ## Features
 
@@ -12,12 +12,36 @@ A .NET 8 Web API for authenticated image upload, transformation, retrieval, and 
 - Image retrieval with optional format conversion on download
 - Centralized error handling and request validation
 
-## Stack
+## Technology Stack
 
-- .NET 8 / ASP.NET Core Web API
-- SQLite with EF Core
-- JWT Bearer authentication
+### Backend
+
+- .NET 8
+- ASP.NET Core Web API
+- Entity Framework Core
+- SQLite
+- JWT Bearer Authentication
+- ASP.NET Core Rate Limiting
 - SixLabors.ImageSharp
+- SixLabors.ImageSharp.Drawing
+
+### Frontend
+
+- React 18
+- Vite
+- JavaScript (ES modules)
+- CSS
+
+### Storage and Persistence
+
+- SQLite database for users and image metadata
+- Local file system storage for uploaded and transformed images
+
+### Development Tooling
+
+- .NET CLI
+- npm
+- Vite dev server
 
 ## Project Structure
 
@@ -29,6 +53,7 @@ A .NET 8 Web API for authenticated image upload, transformation, retrieval, and 
 - `backend/ImageProcessingService.Api/Models` - persistence models
 - `backend/ImageProcessingService.Api/Services` - auth, storage, and image processing services
 - `backend/ImageProcessingService.Api/Contracts` - request and response DTOs
+- `frontend/src` - React application source
 
 ## Run Locally
 
@@ -60,6 +85,14 @@ npm run dev
 The API creates `image-processing.db` for metadata and `backend/ImageProcessingService.Api/Storage` for persisted files on first run.
 The frontend runs on `http://localhost:5173` and proxies API requests to the .NET service on `http://localhost:5228`.
 
+## How It Works
+
+- Users register and log in through JWT-based authentication endpoints.
+- Authenticated users can upload images and store them on the server.
+- Transformations are processed on the backend with ImageSharp.
+- Metadata is stored in SQLite, while image binaries are saved to disk.
+- Previously generated transformations are reused through a transformation signature cache.
+
 ## Configuration
 
 Update `backend/ImageProcessingService.Api/appsettings.json` before production use:
@@ -67,6 +100,8 @@ Update `backend/ImageProcessingService.Api/appsettings.json` before production u
 - `Jwt:SecretKey` - set a long random secret
 - `ConnectionStrings:DefaultConnection` - adjust database location if needed
 - `Storage:RootPath` - swap local storage path
+
+For the frontend, you can optionally provide `VITE_API_BASE_URL` if you want the React app to call a non-default API base URL instead of using the local Vite proxy.
 
 ## API Endpoints
 
@@ -141,7 +176,8 @@ Update `backend/ImageProcessingService.Api/appsettings.json` before production u
 - Transformation requests are rate limited to 20 per minute per authenticated user.
 - Transformed image variants are cached in storage and metadata by hashing the transformation payload.
 - The storage layer is abstracted behind `IFileStorageService`, so local disk can be replaced with S3, R2, or GCS later without changing controller logic.
+- The frontend is intentionally minimal and is designed as a lightweight control panel for the API.
 
+## Project Reference
 
-## URL
 https://roadmap.sh/projects/image-processing-service
