@@ -141,3 +141,7 @@ Update `backend/ImageProcessingService.Api/appsettings.json` before production u
 - Transformation requests are rate limited to 20 per minute per authenticated user.
 - Transformed image variants are cached in storage and metadata by hashing the transformation payload.
 - The storage layer is abstracted behind `IFileStorageService`, so local disk can be replaced with S3, R2, or GCS later without changing controller logic.
+
+
+## URL
+https://roadmap.sh/projects/image-processing-service
