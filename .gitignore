@@ -6,3 +6,5 @@ obj/
 *.db-shm
 *.db-wal
 ImageProcessingService.Api/Storage/
+frontend/node_modules/
+frontend/dist/

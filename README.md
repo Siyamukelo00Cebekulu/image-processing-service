@@ -41,7 +41,21 @@ dotnet restore ImageProcessingService.Api/ImageProcessingService.Api.csproj --co
 dotnet run --project ImageProcessingService.Api
 ```
 
+3. Install frontend dependencies:
+
+```powershell
+cd frontend
+npm install
+```
+
+4. Start the React client:
+
+```powershell
+npm run dev
+```
+
 The API creates `image-processing.db` for metadata and `ImageProcessingService.Api/Storage` for persisted files on first run.
+The frontend runs on `http://localhost:5173` and proxies API requests to the .NET service on `http://localhost:5228`.
 
 ## Configuration
 
